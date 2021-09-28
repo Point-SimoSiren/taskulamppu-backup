@@ -1,72 +1,62 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
+<?xml version="1.0" encoding="utf-8" ?>
+<CarouselPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MuistioXamarin.MainPage">
 
-namespace MuistioXamarin
-{
-    public partial class MainPage : CarouselPage
-    {
+    <ContentPage>
 
-        string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder
-            .LocalApplicationData), "muistio.txt");
+    <StackLayout>
 
-        string text = "";
+            <Frame BackgroundColor="Black" Padding="16" CornerRadius="0">
 
-        public MainPage()
-        {
-            InitializeComponent();
+                <Label Text="Muistio" HorizontalTextAlignment="Center"
+                   TextColor="Orange" FontSize="24"/>
 
-            bool doesExist = File.Exists(fileName);
+            </Frame>
+            <Frame BackgroundColor="Black" Padding="16" CornerRadius="30">
 
-            if (doesExist == true)
-            {
-                text = File.ReadAllText(fileName);
-                if (text.Length > 0)
-                {
-                    outputLabel.Text = text;
-                }
-                else
-                {
-                    outputLabel.Text = "Mitään ei ole talletettu muistioon.";
-                }
+                <Label Text="Muistio" HorizontalTextAlignment="Center"
+                   TextColor="WhiteSmoke" FontSize="20"/>
 
-            }
-            else
-            {
-                outputLabel.Text = "Tervetuloa uudelle käyttäjälle!";
-            }
-        }
+            </Frame>
 
 
-        private void tallennusNappi_Clicked(object sender, EventArgs e)
-        {
-            text = text + Environment.NewLine + inputKentta.Text;
-            File.WriteAllText(fileName, text);
-            //text = File.ReadAllText(fileName);
-            outputLabel.Text = text;
-            inputKentta.Text = "";
-        }
+            <Entry x:Name="inputKentta" Placeholder="Kirjoita tähän..." />
 
-        private void poistoNappi_Clicked(object sender, EventArgs e)
-        {
-            poistoNappi.IsVisible = false;
-            vahvistusInfo.IsVisible = true;
-            vahvistusKytkin.IsVisible = true;
-        }
+            <Button x:Name="tallennusNappi" Text="Tallenna" Clicked="tallennusNappi_Clicked" />
 
-        private void vahvistusKytkin_Toggled(object sender, ToggledEventArgs e)
-        {
-            File.WriteAllText(fileName, "");
-            text = "";
-            outputLabel.Text = "Muistiinpanot tyhjennetty.";
-            poistoNappi.IsVisible = true;
-            vahvistusInfo.IsVisible = false;
-            vahvistusKytkin.IsVisible = false;
-        }
-    }
-}
+            <Label x:Name="outputLabel" />
+
+            <Button x:Name="poistoNappi" Text="Tyhjennä" Clicked="poistoNappi_Clicked" />
+
+            <Label x:Name="vahvistusInfo" IsVisible="false" Text="Vahvista poistaminen ao. kytkimellä" />
+            <Switch x:Name="vahvistusKytkin" IsVisible="false" IsToggled="False" Toggled="vahvistusKytkin_Toggled" />
+
+
+        <Frame BackgroundColor="Black" Padding="16" CornerRadius="0">
+            <Label Text="made by me" HorizontalTextAlignment="Center" TextColor="Orange" FontSize="14"/>
+        </Frame>
+
+    </StackLayout>
+
+    </ContentPage>
+          
+
+    <ContentPage>
+            <StackLayout>
+                <Frame BackgroundColor="Black" Padding="16" CornerRadius="0">
+                <Label Text="Lamppu" HorizontalTextAlignment="Center"
+                   TextColor="Orange" FontSize="24"/>
+                </Frame>
+        
+                <Label Text="sivu 2"/>
+
+                <Frame BackgroundColor="Black" Padding="16" CornerRadius="0">
+                <Label Text="made by me" HorizontalTextAlignment="Center" TextColor="Orange" FontSize="14"/>
+            </Frame>
+                
+            </StackLayout>
+            
+    </ContentPage>
+
+</CarouselPage>
